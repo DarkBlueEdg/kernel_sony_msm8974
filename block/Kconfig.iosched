@@ -92,8 +92,8 @@ config IOSCHED_FIOPS
 	default y
 	---help---
 	  This is an IOPS based I/O scheduler. It will try to distribute
-      IOPS equally among all processes in the system. It's mainly for
-      Flash based storage.
+          IOPS equally among all processes in the system. It's mainly for
+          Flash based storage.
 
 config IOSCHED_SIO
 	tristate "Simple I/O scheduler (New)"
