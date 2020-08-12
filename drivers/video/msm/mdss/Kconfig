@@ -54,6 +54,10 @@ config FB_MSM_MDSS_HDMI_MHL_SII8620_8061
 	MHL (Mobile High-Definition Link) technology
         uses USB connector to output HDMI content
 
+config LCD_KCAL
+	bool "Enable sysfs for LCD KCAL (New)"
+	default n
+
 config FB_MSM_MDSS_KCAL_CTRL
 	depends on FB_MSM_MDSS
 	bool "MDSS color control"
