@@ -122,6 +122,10 @@ struct cpu_freq {
 
 static DEFINE_PER_CPU(struct cpu_freq, cpu_freq_info);
 
+#ifdef CONFIG_TURBO_BOOST
+extern int msm_turbo(int);
+#endif
+
 static int set_cpu_freq(struct cpufreq_policy *policy, unsigned int new_freq,
 			unsigned int index)
 {
@@ -130,6 +134,11 @@ static int set_cpu_freq(struct cpufreq_policy *policy, unsigned int new_freq,
 	int saved_sched_rt_prio = -EINVAL;
 	struct cpufreq_freqs freqs;
 	struct sched_param param = { .sched_priority = MAX_RT_PRIO-1 };
+
+#ifdef CONFIG_TURBO_BOOST
+	new_freq = msm_turbo(new_freq);
+#endif
+
 	struct cpu_freq *limit = &per_cpu(cpu_freq_info, policy->cpu);
 
 	if (limit->limits_init) {
@@ -389,6 +398,13 @@ static int __cpuinit msm_cpufreq_init(struct cpufreq_policy *policy)
 
 	policy->cpuinfo.transition_latency =
 		acpuclk_get_switch_time() * NSEC_PER_USEC;
+
+	/* Use The defult minimum cpu frequency by default. */ 
+	policy->min = 300000; 	
+
+	/* maxwen: I want unified scaling and governor behaviour for all CPUs */
+	policy->shared_type = CPUFREQ_SHARED_TYPE_ALL;
+	cpumask_copy(policy->related_cpus, cpu_possible_mask);
 
 	return 0;
 }

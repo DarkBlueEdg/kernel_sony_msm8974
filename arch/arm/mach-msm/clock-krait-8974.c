@@ -458,6 +458,16 @@ static void get_krait_bin_format_b(struct platform_device *pdev,
 		break;
 	}
 
+#ifdef CONFIG_CPU_OC
+#ifdef CONFIG_CPU_OC_ULTIMATE
+    *speed = 3;
+    dev_info(&pdev->dev, "Androguide: Forcing CPU OC ULTIMATE!\n");
+#else
+	*speed = 1;
+    dev_info(&pdev->dev, "Androguide: Forcing CPU OC!\n");
+#endif
+#endif
+
 	/* Check SPEED_BIN_BLOW_STATUS */
 	if (pte_efuse & BIT(3)) {
 		dev_info(&pdev->dev, "Speed bin: %d\n", *speed);
@@ -476,13 +486,6 @@ static void get_krait_bin_format_b(struct platform_device *pdev,
 	}
 
 	dev_info(&pdev->dev, "PVS version: %d\n", *pvs_ver);
-
-#ifdef CONFIG_CPU_OC
-	dev_info(&pdev->dev, "DooMLoRD: Forcing CPU OC!\n");
-	*speed = 3;
-	dev_info(&pdev->dev, "CPU OC: Speed bin: %d\n", *speed);
-#endif
-
 	devm_iounmap(&pdev->dev, base);
 }
 
