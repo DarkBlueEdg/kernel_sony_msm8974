@@ -452,12 +452,8 @@ obj-$(CONFIG_MSM_DEVFREQ_CPUBW) += devfreq_cpubw.o
 obj-$(CONFIG_WALL_CLK) += wallclk.o
 obj-$(CONFIG_WALL_CLK_SYSFS) += wallclk_sysfs.o
 
-obj-$(CONFIG_MSM_SLEEPER) += msm-sleeper.o
 obj-$(CONFIG_TURBO_BOOST) += msm_turbo.o
-obj-$(CONFIG_LCD_KCAL) += board_kcal.o kcal_ctrl.o
 
-obj-$(CONFIG_FORCE_FAST_CHARGE) += fastchg.o
-obj-$(CONFIG_MSM_CPUFREQ_LIMITER) += cpufreq_limit.o
 obj-$(CONFIG_PVS_SPEED_CONTROL) += pvs_speed_control.o
 
 obj-$(CONFIG_ARCH_RANDOM) += early_random.o
